@@ -9,26 +9,50 @@
 <link href="./rp.css" rel="stylesheet" type="text/css" />
 <link href="./css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Comic+Sans+MS&display=swap');
+
 .welcome-container {
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #000;
+    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
     color: #fff;
     position: relative;
+    overflow: hidden;
 }
+
+@keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
 .welcome-content {
     text-align: center;
     padding: 2rem;
+    animation: bounce 2s infinite;
 }
+
 .welcome-title {
+    font-family: 'Comic Sans MS', cursive;
     font-size: 3.5rem;
-    font-weight: 300;
+    font-weight: bold;
     letter-spacing: 5px;
     margin-bottom: 2rem;
-    animation: fadeIn 2s ease-in;
+    animation: rainbow-text 5s linear infinite;
+    text-shadow: 3px 3px 0 #000;
 }
+
+.clown-emoji {
+    font-size: 5rem;
+    margin: 20px;
+    animation: spin 3s linear infinite;
+    display: inline-block;
+}
+
 .back-home {
     position: absolute;
     top: 2rem;
@@ -37,13 +61,55 @@
     text-decoration: none;
     font-size: 1.2rem;
     transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 10px 20px;
+    border-radius: 30px;
+    animation: wobble 2s infinite;
 }
+
 .back-home:hover {
-    color: #ccc;
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.4);
 }
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #fff;
+    animation: confetti-fall 3s linear infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes wobble {
+    0%, 100% { transform: rotate(0); }
+    25% { transform: rotate(5deg); }
+    75% { transform: rotate(-5deg); }
+}
+
+@keyframes rainbow-text {
+    0% { color: red; }
+    14% { color: orange; }
+    28% { color: yellow; }
+    42% { color: green; }
+    57% { color: blue; }
+    71% { color: indigo; }
+    85% { color: violet; }
+    100% { color: red; }
+}
+
+@keyframes confetti-fall {
+    0% { transform: translateY(-100vh) rotate(0deg); }
+    100% { transform: translateY(100vh) rotate(360deg); }
 }
 </style>
 </head>
@@ -53,8 +119,25 @@
             <i class="fa fa-arrow-left"></i> Trang chủ
         </a>
         <div class="welcome-content">
+            <div class="clown-emoji">🤡</div>
             <h1 class="welcome-title">DUMAMAY HOANG DINH ANH TUAN 🖕</h1>
+            <div class="clown-emoji">🤡</div>
         </div>
     </div>
+    <script>
+        // Add confetti elements
+        function createConfetti() {
+            const colors = ['#ff0000', '#ff7300', '#fffb00', '#48ff00', '#00ffd5', '#002bff', '#7a00ff'];
+            for(let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDelay = Math.random() * 3 + 's';
+                document.querySelector('.welcome-container').appendChild(confetti);
+            }
+        }
+        createConfetti();
+    </script>
 </body>
 </html> 
